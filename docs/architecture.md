@@ -24,3 +24,28 @@ Uygulama, FastAPI tabanlı katmanlı mimari (Layered Architecture) prensiplerine
 - `status` (String): O anki durum.
 - `location` (String): İşlemin yapıldığı merkez/şube.
 - `timestamp` (DateTime): İşlem saati.
+
+## 3. Varlık-İlişki (ER) Diyagramı
+
+
+erDiagram
+    SHIPMENT ||--o{ SHIPMENT_HISTORY : "sahiptir (1:N)"
+    
+    SHIPMENT {
+        int id PK
+        string tracking_code UK "TR-XXXXXXXX"
+        string sender_name
+        string receiver_name
+        string receiver_address
+        string status "ACCEPTED, IN_TRANSIT, DELIVERED"
+        float weight_kg
+        datetime created_at
+    }
+
+    SHIPMENT_HISTORY {
+        int id PK
+        int shipment_id FK
+        string status
+        string location
+        datetime timestamp
+    }
